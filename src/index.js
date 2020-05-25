@@ -7,4 +7,13 @@
 //import 'bootstrap/.../bootstrap.css' 
 //import Bootstrap from 'bootstrap/.../bootstrap.css' - если будем с ним взаимодействовать
 
+
+// JS 
 import './js/script';
+
+// SCSS
+import './scss/style.scss';
+
+// CSS (example)
+import './css/main.css';
+
