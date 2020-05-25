@@ -1,9 +1,11 @@
+@import 'utils/fonts';
+
 .conteiner {
     display: flex;
     min-height: 300px;
     background-color: wheat;
     .title {
-        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
     }
 }
 

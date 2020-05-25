@@ -16,9 +16,26 @@ module.exports = {
         app: PATHS.src
     },
     output: {
-        filename: `js/[name].js`,
+        filename: `js/[name].[hash].js`,
         path: PATHS.dist,
         publicPath: '/'
+    },
+    resolve: {
+        alias: {
+            '~': 'src'
+        }
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: 'vendors',
+                    test: /node_modules/,
+                    chunks: 'all',
+                    enforce: true 
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -38,7 +55,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             config: {
-                                path: `${PATHS.src}/postcss.config.js`
+                                path: `./postcss.config.js`
                             }
                         }
                     }
@@ -55,7 +72,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             config: {
-                                path: `${PATHS.src}/postcss.config.js`
+                                path: `./postcss.config.js`
                             }
                         }
                     }, {
@@ -69,24 +86,34 @@ module.exports = {
                 options: {
                     name: '[name].[ext]'
                 }
+            }, {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]'
+                }
             }
 
         ]
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: `css/[name].css`
+            filename: `css/[name].[hash].css`
         }),
         new HtmlWebpackPlugin({
-            hash: false,
             template: `${PATHS.src}/index.html`,
-            filename: './index.html'
+            filename: './index.html',
+            inject: true
         }),
         new CopyWebpackPlugin({
             patterns: [
                 {
                     from: `${PATHS.src}/img`,
                     to: `img/`
+                },
+                {
+                    from: `${PATHS.src}/fonts`,
+                    to: `fonts/`
                 },
                 {
                     from: `${PATHS.src}/static`,
