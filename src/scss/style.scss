@@ -1,16 +1,7 @@
 @import 'utils/fonts';
 
-.conteiner {
-    display: flex;
-    min-height: 300px;
-    background-color: wheat;
-    .title {
-        font-family: 'Roboto', sans-serif;
-    }
-}
-
-.images {
-    background-image: url('/img/dogsad.jpg');
-    width: 100%;
-    height: 1000px;
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    color: red;
 }

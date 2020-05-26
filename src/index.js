@@ -14,6 +14,4 @@ import './js/script';
 // SCSS
 import './scss/style.scss';
 
-// CSS (example)
-import './css/main.css';
 
