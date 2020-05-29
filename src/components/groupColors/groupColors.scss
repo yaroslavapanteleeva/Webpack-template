@@ -1,0 +1,13 @@
+@mixin rect {
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+}
+
+@mixin descr {
+    font-family: $font-quick;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 29px;
+    margin-left: 40px;
+}

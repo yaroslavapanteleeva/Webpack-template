@@ -1,0 +1,7 @@
+mixin colors(items)
+    each item in items
+        .color
+            div(class='color__rect color__rect--' +item.modific)
+            .color__descr
+                .color__name #{item.name}
+                .color__value #{item.value}

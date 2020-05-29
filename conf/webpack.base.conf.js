@@ -9,10 +9,10 @@ const PATHS = {
     dist: path.join(__dirname, '../dist')
 };
 
-const PAGES_DIR = `${PATHS.src}/pug/pages/`;
-const PAGES = fs
-    .readdirSync(PAGES_DIR)
-    .filter(fileName => fileName.endsWith('.pug'));
+const PAGES_DIR = `${PATHS.src}/pages/ui-kit`;
+const PAGES = fs.readdirSync(PAGES_DIR);
+    
+
 
 module.exports = {
     externals: {
@@ -22,11 +22,16 @@ module.exports = {
         app: PATHS.src
     },
     output: {
-        filename: `js/[name].[hash].js`,
+        filename: `[name].[contenthash].js`,
         path: PATHS.dist,
         publicPath: '/'
     },
     resolve: {
+        extensions: [
+            '.js', 
+            '.pug',
+            '.scss'
+        ],
         alias: {
             '~': 'src'
         }
@@ -97,9 +102,15 @@ module.exports = {
                 }
             }, {
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]'
+                exclude: [
+                    path.resolve(__dirname, 'src/static/fonts')
+                ],
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/'
+                    }
                 }
             }
 
@@ -107,27 +118,18 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: `css/[name].[hash].css`
+            filename: `css/[name].[contenthash].css`
         }),
         ...PAGES.map(page => new HtmlWebpackPlugin({
-            template: `${PAGES_DIR}/${page}`,
-            filename: `./${page.replace(/\.pug/,'.html')}`,
-            inject: false
+            template: `${PAGES_DIR}/${page}/${page}.pug`,
+            filename: `${page}.html`,
         })),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: `${PATHS.src}/img`,
-                    to: `img/`
-                },
-                {
-                    from: `${PATHS.src}/fonts`,
-                    to: `fonts/`
-                },
-                {
                     from: `${PATHS.src}/static`,
                     to: ``
-                } 
+                }
             ],
         })
     ]

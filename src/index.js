@@ -9,9 +9,16 @@
 
 
 // JS 
-import './js/script';
+//import './js/script';
 
 // SCSS
-import './scss/style.scss';
+//import './scss/style.scss';
+
+function requireAll(requireContext) {
+    return requireContext.keys().map(requireContext);
+}
+
+requireAll(require.context('../src/', true, /\.js$|\.scss$/));
+
 
 
